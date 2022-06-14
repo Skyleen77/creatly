@@ -1,16 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 import { FiLock } from 'react-icons/fi';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../context/auth';
 
 const Signin = () => {
-  // Context
-  const [auth, setAuth] = useContext(AuthContext);
   // State
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -59,95 +56,96 @@ const Signin = () => {
   };
 
   return (
-    <Row>
-      <Col lg={{ span: 8, offset: 8 }} xs={{ span: 22, offset: 1 }}>
-        <div className="creatly-form-container">
-          <h1
-            style={{
-              paddingBottom: '10px',
-              textAlign: 'center',
-            }}
+    <div className="creatly-background-form creatly-container">
+      <div className="creatly-form-container">
+        <img
+          className="creatly-logo"
+          src="/assets/creatly.png"
+          alt="logo creatly"
+        />
+
+        <hr />
+
+        <h1 className="creatly-title-form">Forgot Password</h1>
+
+        <Form
+          name="normal_login"
+          className="creatly-login-form"
+          onFinish={visible ? resetPasswordRequest : forgotPasswordRequest}
+        >
+          {/* Email */}
+          <Item
+            name="email"
+            rules={[
+              {
+                type: 'email',
+                required: true,
+                message: 'Please input your email',
+              },
+            ]}
           >
-            Forgot Password
-          </h1>
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
+          </Item>
 
-          <Form
-            name="normal_login"
-            className="creatly-login-form"
-            onFinish={visible ? resetPasswordRequest : forgotPasswordRequest}
-          >
-            {/* Email */}
-            <Item
-              name="email"
-              rules={[
-                {
-                  type: 'email',
-                  required: true,
-                  message: 'Please input your email',
-                },
-              ]}
-            >
-              <Input
-                prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Email"
-              />
-            </Item>
-
-            {/* Password */}
-            {visible && (
-              <>
-                <Item
-                  name="resetCode"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input your reset code',
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<MailOutlined className="site-form-item-icon" />}
-                    placeholder="Reset Code"
-                  />
-                </Item>
-                <Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter your new password',
-                    },
-                  ]}
-                >
-                  <Password
-                    prefix={<FiLock className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="New Password"
-                  />
-                </Item>
-              </>
-            )}
-
-            {/* Button Submit */}
-            <Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="creatly-login-form-button"
-                style={{ marginBottom: '10px' }}
-                loading={loading}
+          {/* Password */}
+          {visible && (
+            <>
+              <Item
+                name="resetCode"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your reset code',
+                  },
+                ]}
               >
-                Submit
-              </Button>
-              Or{' '}
-              <Link href="/signup">
+                <Input
+                  prefix={<MailOutlined className="site-form-item-icon" />}
+                  placeholder="Reset Code"
+                />
+              </Item>
+              <Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter your new password',
+                  },
+                ]}
+              >
+                <Password
+                  prefix={<FiLock className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="New Password"
+                />
+              </Item>
+            </>
+          )}
+
+          {/* Button Submit */}
+          <Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="creatly-login-form-button"
+              loading={loading}
+            >
+              Submit
+            </Button>
+
+            <div className="creatly-text-center">
+              <span>If you already have an account </span>
+              <Link href="/signin">
                 <a>login now!</a>
               </Link>
-            </Item>
-          </Form>
-        </div>
-      </Col>
-    </Row>
+            </div>
+          </Item>
+        </Form>
+      </div>
+    </div>
   );
 };
 

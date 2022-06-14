@@ -40,7 +40,7 @@ const AdminNav = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={() => setCollapsed(!collapsed)}
-      style={{ minHeight: 'calc(100vh - 50px)' }}
+      className="creatly-admin-nav"
     >
       <Menu
         defaultOpenKeys={['2', '6', '10']}

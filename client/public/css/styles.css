@@ -2,6 +2,15 @@
   height: 50px;
 }
 
+.creatly-admin-nav {
+  min-height: calc(100vh - 50px);
+}
+
+.creatly-nav,
+.creatly-admin-nav {
+  z-index: 9999999999px;
+}
+
 .creatly-ant-menu-item.active,
 .creatly-nav .ant-menu-item-selected {
   background-color: rgba(24, 143, 255, 0.0784313725) !important;
@@ -32,46 +41,102 @@
   border: unset !important;
 }
 
-.creatly-nav .creatly-theme-toggle.ant-menu-item-selected,
-.creatly-nav .creatly-theme-toggle:hover,
-.creatly-nav .creatly-theme-toggle:focus,
-.creatly-nav .creatly-theme-toggle:active {
-  background-color: unset !important;
-  border: unset !important;
-}
-
 .creatly-submenu {
   margin-left: auto;
 }
-.creatly-submenu-item.ant-menu-item-selected {
+.creatly-submenu .ant-menu-item-selected {
   background-color: transparent !important;
+}
+
+.creatly-title-form {
+  margin-top: 5px;
 }
 
 .creatly-login-form {
   margin: 0 auto;
 }
 
+.creatly-form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+  max-width: 435px;
+  padding: 40px;
+  padding-top: 38px;
+  border-radius: 10px;
+  background-color: #fff !important;
+  -webkit-box-shadow: rgba(33, 33, 52, 0.1) 0px 1px 4px;
+          box-shadow: rgba(33, 33, 52, 0.1) 0px 1px 4px;
+}
+
+.creatly-container hr {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  width: 80%;
+}
+.creatly-container .ant-form {
+  width: 100%;
+}
+.creatly-container .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+.creatly-container .creatly-logo {
+  width: 150px;
+  margin-bottom: 10px;
+}
+.creatly-container .ant-input-prefix {
+  margin-right: 8px;
+}
+.creatly-container .ant-input-affix-wrapper {
+  padding: 8px 11px;
+  border-radius: 7px;
+}
+.creatly-container .ant-btn {
+  height: unset !important;
+  padding: 8px 20px;
+  border-radius: 7px;
+  margin-bottom: 20px !important;
+}
+.creatly-container .forgot-password {
+  margin-bottom: 15px;
+  margin-top: -7px;
+}
+.creatly-container .forgot-password .ant-form-item-control-input {
+  min-height: unset;
+}
+
 .creatly-login-form-button {
   width: 100%;
 }
 
+.creatly-background-form {
+  background-color: #f6f6f9;
+}
+
+.creatly-background-form {
+  height: 100vh;
+  padding-top: 15vh;
+}
+
 .creatly-form-container {
-  margin: 0 auto;
-  max-width: 360px;
-  margin-top: 20vh;
-  padding: 30px;
-  padding-top: 38px;
-  border-radius: 10px;
-}
-
-.light .creatly-form-container {
   background-color: #f5f5f5;
-}
-
-.dark .creatly-form-container {
-  background-color: #1f1f1f;
 }
 
 .creatly-logo-nav {
   width: 90px;
+}
+
+.creatly-text-center {
+  text-align: center;
 }/*# sourceMappingURL=styles.css.map */

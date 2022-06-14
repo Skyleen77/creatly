@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MailOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Form, Input } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiLock } from 'react-icons/fi';
@@ -39,93 +39,94 @@ const Signup = () => {
   };
 
   return (
-    <Row>
-      <Col lg={{ span: 8, offset: 8 }} xs={{ span: 22, offset: 1 }}>
-        <div className="creatly-form-container">
-          <h1
-            style={{
-              paddingBottom: '10px',
-              textAlign: 'center',
-            }}
+    <div className="creatly-background-form creatly-container">
+      <div className="creatly-form-container">
+        <img
+          className="creatly-logo"
+          src="/assets/creatly.png"
+          alt="logo creatly"
+        />
+
+        <hr />
+
+        <h1 className="creatly-title-form">Signup</h1>
+
+        <Form
+          name="normal_login"
+          className="creatly-login-form"
+          onFinish={onFinish}
+        >
+          {/* Username */}
+          <Item
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Username!',
+              },
+            ]}
           >
-            Signup
-          </h1>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+            />
+          </Item>
 
-          <Form
-            name="normal_login"
-            className="creatly-login-form"
-            onFinish={onFinish}
+          {/* Email */}
+          <Item
+            name="email"
+            rules={[
+              {
+                type: 'email',
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
           >
-            {/* Username */}
-            <Item
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Username!',
-                },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-              />
-            </Item>
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
+          </Item>
 
-            {/* Email */}
-            <Item
-              name="email"
-              rules={[
-                {
-                  type: 'email',
-                  required: true,
-                  message: 'Please input your Email!',
-                },
-              ]}
-            >
-              <Input
-                prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Email"
-              />
-            </Item>
+          {/* Password */}
+          <Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ]}
+          >
+            <Password
+              prefix={<FiLock className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Item>
 
-            {/* Password */}
-            <Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Password!',
-                },
-              ]}
+          {/* Button Submit */}
+          <Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="creatly-login-form-button"
+              loading={loading}
             >
-              <Password
-                prefix={<FiLock className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Item>
+              Register
+            </Button>
 
-            {/* Button Submit */}
-            <Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="creatly-login-form-button"
-                style={{ marginBottom: '10px' }}
-                loading={loading}
-              >
-                Register
-              </Button>
-              Or{' '}
+            <div className="creatly-text-center">
+              <span>If you already have an account </span>
               <Link href="/signin">
                 <a>login now!</a>
               </Link>
-            </Item>
-          </Form>
-        </div>
-      </Col>
-    </Row>
+            </div>
+          </Item>
+        </Form>
+      </div>
+    </div>
   );
 };
 

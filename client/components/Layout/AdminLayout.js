@@ -8,7 +8,9 @@ const AdminLayout = ({ children }) => {
     <Layout>
       <AdminNav />
       <Layout>
-        <Content style={{ padding: '10px' }}>{children}</Content>
+        <Content style={{ padding: '10px' }} className="creatly-container">
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );

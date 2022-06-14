@@ -1,11 +1,9 @@
 import { useState, useContext } from 'react';
 import { Menu } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
-import ToggleTheme from '../ToggleTheme';
 import Link from 'next/link';
 import { AuthContext } from '../../context/auth';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 
 const { SubMenu, Item, ItemGroup } = Menu;
 
@@ -34,7 +32,7 @@ const TopNav = () => {
 
   return (
     <>
-      {auth?.user !== null ? (
+      {auth?.user !== null && (
         <Menu
           onClick={handleClick}
           selectedKeys={[current]}
@@ -48,6 +46,7 @@ const TopNav = () => {
                 <img
                   className="creatly-logo-nav"
                   src="/assets/creatlyWhite.png"
+                  alt="logo creatly"
                 />
               </a>
             </Link>
@@ -74,15 +73,7 @@ const TopNav = () => {
               <a>Signout</a>
             </Item>
           </SubMenu>
-
-          <Item className="creatly-theme-toggle">
-            <ToggleTheme />
-          </Item>
         </Menu>
-      ) : (
-        <Head>
-          <link rel="stylesheet" href={'/css/light.css'} />
-        </Head>
       )}
     </>
   );
