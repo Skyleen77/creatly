@@ -2,18 +2,29 @@ import { MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import Link from 'next/link';
 import { FiLock } from 'react-icons/fi';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Signup = () => {
   const { Item } = Form;
   const { Password } = Input;
 
-  const onFinish = (values) => {
-    console.log('values => ', values);
+  axios.defaults.baseURL = 'http://localhost:8000/api/';
+
+  const onFinish = async (values) => {
+    // console.log('values => ', values);
+    try {
+      const res = await axios.post('/signup', values);
+      console.log('res => ', res);
+    } catch (err) {
+      console.log(err);
+      toast.error('Signup failed. Try again.');
+    }
   };
 
   return (
     <Row>
-      <Col span={8} offset={8}>
+      <Col lg={{ span: 8, offset: 8 }} xs={{ span: 22, offset: 1 }}>
         <div className="creatly-form-container">
           <h1
             style={{
@@ -34,7 +45,7 @@ const Signup = () => {
           >
             {/* Username */}
             <Item
-              name="username"
+              name="name"
               rules={[
                 {
                   required: true,

@@ -1,5 +1,6 @@
-.creatly-ant-menu-item.active {
-  background-color: rgba(24, 143, 255, 0.0784313725) !important;
+.creatly-ant-menu-item.active,
+.creatly-nav .ant-menu-item-selected {
+  background-color: #188fff14 !important;
 }
 
 .creatly-ant-menu-item.active {
@@ -10,15 +11,23 @@
   border-right: none !important;
 }
 
-.creatly-ant-menu-item.active a {
-  color: #1890ff !important;
+.creatly-ant-menu-item.active,
+.creatly-nav .ant-menu-item-selected {
+  a {
+    color: #1890ff !important;
+  }
 }
 
 .creatly-nav .ant-menu-item:hover {
   background-color: transparent !important;
+
+  a {
+    color: #fff;
+  }
 }
-.creatly-nav .ant-menu-item:hover a {
-  color: #fff;
+
+.creatly-nav .ant-menu-item-selected {
+  border-bottom: 3px solid #1890ff !important;
 }
 
 .creatly-nav .creatly-theme-toggle.ant-menu-item-selected {
@@ -26,7 +35,7 @@
   border: unset !important;
 }
 
-.creatly-nav .ant-menu-item-selected,
+.creatly-nav .creatly-theme-toggle.ant-menu-item-selected,
 .creatly-nav .creatly-theme-toggle:hover,
 .creatly-nav .creatly-theme-toggle:focus,
 .creatly-nav .creatly-theme-toggle:active {
@@ -37,7 +46,6 @@
 .creatly-login-form {
   margin: 0 auto;
 }
-
 .creatly-login-form-button {
   width: 100%;
 }
@@ -61,4 +69,4 @@
 
 .creatly-logo-nav {
   width: 90px;
-}/*# sourceMappingURL=styles.css.map */
+}

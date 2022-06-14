@@ -14,7 +14,7 @@ const Signin = () => {
 
   return (
     <Row>
-      <Col span={8} offset={8}>
+      <Col lg={{ span: 8, offset: 8 }} xs={{ span: 22, offset: 1 }}>
         <div className="creatly-form-container">
           <h1
             style={{
@@ -85,7 +85,7 @@ const Signin = () => {
                 Login
               </Button>
               Or{' '}
-              <Link href="/signin">
+              <Link href="/signup">
                 <a>register now!</a>
               </Link>
             </Item>
