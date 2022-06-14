@@ -1,4 +1,9 @@
-.creatly-ant-menu-item.active {
+.creatly-nav {
+  height: 50px;
+}
+
+.creatly-ant-menu-item.active,
+.creatly-nav .ant-menu-item-selected {
   background-color: rgba(24, 143, 255, 0.0784313725) !important;
 }
 
@@ -10,7 +15,8 @@
   border-right: none !important;
 }
 
-.creatly-ant-menu-item.active a {
+.creatly-ant-menu-item.active a,
+.creatly-nav .ant-menu-item-selected a {
   color: #1890ff !important;
 }
 
@@ -21,17 +27,24 @@
   color: #fff;
 }
 
-.creatly-nav .creatly-theme-toggle.ant-menu-item-selected {
+.creatly-nav .ant-menu-item-selected {
   background-color: unset !important;
   border: unset !important;
 }
 
-.creatly-nav .ant-menu-item-selected,
+.creatly-nav .creatly-theme-toggle.ant-menu-item-selected,
 .creatly-nav .creatly-theme-toggle:hover,
 .creatly-nav .creatly-theme-toggle:focus,
 .creatly-nav .creatly-theme-toggle:active {
   background-color: unset !important;
   border: unset !important;
+}
+
+.creatly-submenu {
+  margin-left: auto;
+}
+.creatly-submenu-item.ant-menu-item-selected {
+  background-color: transparent !important;
 }
 
 .creatly-login-form {

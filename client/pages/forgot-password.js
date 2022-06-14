@@ -13,36 +13,47 @@ const Signin = () => {
   const [auth, setAuth] = useContext(AuthContext);
   // State
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
   // Router
   const router = useRouter();
 
   const { Item } = Form;
   const { Password } = Input;
 
-  const onFinish = async (values) => {
+  const forgotPasswordRequest = async (values) => {
     setLoading(true);
-    // console.log('values => ', values);
-    try {
-      const { data } = await axios.post('/signin', values);
 
+    try {
+      const { data } = await axios.post('/forgot-password', values);
+      if (data?.error) {
+        toast.error(data.error);
+      } else {
+        toast.success('Password reset code has been sent to your email.');
+        setVisible(true);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error('Submit failed. Try again.');
+      setLoading(false);
+    }
+  };
+
+  const resetPasswordRequest = async (values) => {
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post('/reset-password', values);
       if (data?.error) {
         toast.error(data.error);
         setLoading(false);
       } else {
-        // save in context
-        setAuth(data);
-        // save in localStorage
-        localStorage.setItem('auth', JSON.stringify(data));
-
-        // Successfully
-        toast.success('Successfully signed in');
-
-        // Redirect
-        router.push('/admin');
+        toast.success('Password changed successfully.');
+        router.push('signin');
       }
     } catch (err) {
       console.log(err);
-      toast.error('Signin failed. Try again.');
+      toast.error('Submit failed. Try again.');
       setLoading(false);
     }
   };
@@ -57,16 +68,13 @@ const Signin = () => {
               textAlign: 'center',
             }}
           >
-            Signin
+            Forgot Password
           </h1>
 
           <Form
             name="normal_login"
             className="creatly-login-form"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
+            onFinish={visible ? resetPasswordRequest : forgotPasswordRequest}
           >
             {/* Email */}
             <Item
@@ -75,7 +83,7 @@ const Signin = () => {
                 {
                   type: 'email',
                   required: true,
-                  message: 'Please input your Email!',
+                  message: 'Please input your email',
                 },
               ]}
             >
@@ -86,28 +94,39 @@ const Signin = () => {
             </Item>
 
             {/* Password */}
-            <Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Password!',
-                },
-              ]}
-            >
-              <Password
-                prefix={<FiLock className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Item>
-
-            {/* Forgot password */}
-            <Item>
-              <Link href="/forgot-password">
-                <a>Forgot password</a>
-              </Link>
-            </Item>
+            {visible && (
+              <>
+                <Item
+                  name="resetCode"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your reset code',
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined className="site-form-item-icon" />}
+                    placeholder="Reset Code"
+                  />
+                </Item>
+                <Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter your new password',
+                    },
+                  ]}
+                >
+                  <Password
+                    prefix={<FiLock className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="New Password"
+                  />
+                </Item>
+              </>
+            )}
 
             {/* Button Submit */}
             <Item>
@@ -118,11 +137,11 @@ const Signin = () => {
                 style={{ marginBottom: '10px' }}
                 loading={loading}
               >
-                Login
+                Submit
               </Button>
               Or{' '}
               <Link href="/signup">
-                <a>register now!</a>
+                <a>login now!</a>
               </Link>
             </Item>
           </Form>

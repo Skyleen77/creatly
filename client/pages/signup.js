@@ -1,24 +1,40 @@
+import { useState } from 'react';
 import { MailOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Input, Row } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FiLock } from 'react-icons/fi';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
+  // Router
+  const router = useRouter();
+  // State
+  const [loading, setLoading] = useState(false);
+
   const { Item } = Form;
   const { Password } = Input;
 
-  axios.defaults.baseURL = 'http://localhost:8000/api/';
-
   const onFinish = async (values) => {
     // console.log('values => ', values);
+    setLoading(true);
     try {
-      const res = await axios.post('/signup', values);
-      console.log('res => ', res);
+      const { data } = await axios.post('/signup', values);
+      if (data?.error) {
+        toast.error(data.error);
+        setLoading(false);
+      } else {
+        // Successfully
+        toast.success('Successfully signed up');
+
+        // Redirect
+        router.push('/signin');
+      }
     } catch (err) {
       console.log(err);
       toast.error('Signup failed. Try again.');
+      setLoading(false);
     }
   };
 
@@ -38,9 +54,6 @@ const Signup = () => {
           <Form
             name="normal_login"
             className="creatly-login-form"
-            initialValues={{
-              remember: true,
-            }}
             onFinish={onFinish}
           >
             {/* Username */}
@@ -100,6 +113,7 @@ const Signup = () => {
                 htmlType="submit"
                 className="creatly-login-form-button"
                 style={{ marginBottom: '10px' }}
+                loading={loading}
               >
                 Register
               </Button>

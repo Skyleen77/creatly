@@ -1,3 +1,7 @@
+.creatly-nav {
+  height: 50px;
+}
+
 .creatly-ant-menu-item.active,
 .creatly-nav .ant-menu-item-selected {
   background-color: #188fff14 !important;
@@ -27,10 +31,6 @@
 }
 
 .creatly-nav .ant-menu-item-selected {
-  border-bottom: 3px solid #1890ff !important;
-}
-
-.creatly-nav .creatly-theme-toggle.ant-menu-item-selected {
   background-color: unset !important;
   border: unset !important;
 }
@@ -41,6 +41,14 @@
 .creatly-nav .creatly-theme-toggle:active {
   background-color: unset !important;
   border: unset !important;
+}
+
+.creatly-submenu {
+  margin-left: auto;
+
+  .ant-menu-item-selected {
+    background-color: transparent !important;
+  }
 }
 
 .creatly-login-form {
