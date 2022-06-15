@@ -1,12 +1,28 @@
+import { useState } from 'react';
 import AdminLayout from '../../../components/Layout/AdminLayout';
 import { Form, Input, Row, Col, Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Categories = () => {
   const { Item } = Form;
 
+  const [loading, setLoading] = useState(false);
+
   const onFinish = async (values) => {
-    console.log(values);
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post('/category', values);
+      console.log(data);
+      toast.success('Category created successfully');
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      toast.error('Category create failed');
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,7 +47,7 @@ const Categories = () => {
               />
             </Item>
 
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Create Category
             </Button>
           </Form>

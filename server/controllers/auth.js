@@ -13,6 +13,8 @@ export const signup = async (req, res) => {
   try {
     // validation
     const { name, email, password } = req.body;
+    let role = 'Subscriber';
+
     if (!name) {
       return res.json({
         error: 'Username is required',
@@ -37,11 +39,17 @@ export const signup = async (req, res) => {
     // hash password
     const hashedPassword = await hashPassword(password);
 
+    const allUsers = await User.find();
+    if (allUsers.length === 0) {
+      role = 'Admin';
+    }
+
     try {
       const user = await new User({
         name,
         email,
         password: hashedPassword,
+        role,
       }).save();
 
       // console.log('user save ', user);
@@ -151,6 +159,14 @@ export const resetPassword = async (req, res) => {
     user.resetCode = '';
     user.save();
     return res.json({ ok: true });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const currentUser = async (req, res) => {
+  try {
+    res.json({ ok: true });
   } catch (err) {
     console.log(err);
   }

@@ -2,17 +2,22 @@ import express from 'express';
 
 const router = express.Router();
 
+// middlewares
+import { isAdmin, requireSignin } from '../middlewares';
+
 // controllers
-const {
+import {
   signup,
   signin,
   forgotPassword,
   resetPassword,
-} = require('../controllers/auth');
+  currentUser,
+} from '../controllers/auth';
 
 router.post('/signup', signup);
 router.post('/signin', signin);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
+router.get('/current-admin', requireSignin, isAdmin, currentUser);
 
 export default router;

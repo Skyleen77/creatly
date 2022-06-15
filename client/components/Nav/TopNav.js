@@ -1,16 +1,13 @@
 import { useState, useContext } from 'react';
 import { Menu } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { AuthContext } from '../../context/auth';
-import { useRouter } from 'next/router';
 
 const { SubMenu, Item, ItemGroup } = Menu;
 
 const TopNav = () => {
   const [auth, setAuth] = useContext(AuthContext);
-
-  const router = useRouter();
 
   const [current, setCurrent] = useState('mail');
 
@@ -18,16 +15,14 @@ const TopNav = () => {
     setCurrent(e.key);
   };
 
-  const signOut = () => {
-    // remove from localStorage
-    localStorage.removeItem('auth');
-    // remove from context
-    setAuth({
-      user: null,
-      token: '',
-    });
-    // redirect
-    router.push('/');
+  const roleBasedLink = () => {
+    if (auth?.user?.role === 'Admin') {
+      return '/admin';
+    } else if (auth?.user?.role === 'Author') {
+      return '/author';
+    } else {
+      return '/subscriber';
+    }
   };
 
   return (
@@ -54,23 +49,21 @@ const TopNav = () => {
 
           <SubMenu
             key="SubMenu"
-            icon={<SettingOutlined />}
-            title="Dashboard"
+            icon={<UserOutlined />}
+            title={auth?.user?.name || 'Dashboard'}
             className="creatly-submenu"
           >
             <ItemGroup title="Management">
               <Item key="setting:1" className="creatly-submenu-item">
-                <Link href="/admin">
-                  <a>Admin</a>
+                <Link href={roleBasedLink()}>
+                  <a>Dashboard</a>
                 </Link>
               </Item>
             </ItemGroup>
-            <Item
-              className="creatly-submenu-item"
-              key="setting:2"
-              onClick={signOut}
-            >
-              <a>Signout</a>
+            <Item className="creatly-submenu-item" key="setting:2">
+              <Link href="/signout">
+                <a>Signout</a>
+              </Link>
             </Item>
           </SubMenu>
         </Menu>

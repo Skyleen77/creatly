@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Button, Form, Input } from 'antd';
@@ -7,17 +7,29 @@ import { FiLock } from 'react-icons/fi';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../context/auth';
+import Loading from '../components/Loading';
 
 const Signin = () => {
   // Context
   const [auth, setAuth] = useContext(AuthContext);
   // State
   const [loading, setLoading] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(true);
   // Router
   const router = useRouter();
 
   const { Item } = Form;
   const { Password } = Input;
+
+  const redirectUser = (role) => {
+    if (role === 'Admin') {
+      router.push('/admin');
+    } else if (role === 'Author') {
+      router.push('/author');
+    } else {
+      router.push('/subscriber');
+    }
+  };
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -38,7 +50,7 @@ const Signin = () => {
         toast.success('Successfully signed in');
 
         // Redirect
-        router.push('/admin');
+        redirectUser(data?.user?.role);
       }
     } catch (err) {
       console.log(err);
@@ -47,89 +59,103 @@ const Signin = () => {
     }
   };
 
+  useEffect(() => {
+    if (auth?.user !== null) {
+      redirectUser(auth?.user?.role);
+    } else {
+      setLoadingPage(false);
+    }
+  }, [auth?.user]);
+
   return (
-    <div className="creatly-background-form creatly-container">
-      <div className="creatly-form-container">
-        <img
-          className="creatly-logo"
-          src="/assets/creatly.png"
-          alt="logo creatly"
-        />
-
-        <hr />
-
-        <h1 className="creatly-title-form">Signin</h1>
-
-        <Form
-          name="normal_login"
-          className="creatly-login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          {/* Email */}
-          <Item
-            name="email"
-            rules={[
-              {
-                type: 'email',
-                required: true,
-                message: 'Please input your Email!',
-              },
-            ]}
-          >
-            <Input
-              prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="Email"
+    <>
+      {loadingPage ? (
+        <Loading />
+      ) : (
+        <div className="creatly-background-form creatly-container">
+          <div className="creatly-form-container">
+            <img
+              className="creatly-logo"
+              src="/assets/creatly.png"
+              alt="logo creatly"
             />
-          </Item>
 
-          {/* Password */}
-          <Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Password!',
-              },
-            ]}
-          >
-            <Password
-              prefix={<FiLock className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
-          </Item>
+            <hr />
 
-          {/* Forgot password */}
-          <Item className="forgot-password">
-            <Link href="/forgot-password">
-              <a>Forgot password</a>
-            </Link>
-          </Item>
+            <h1 className="creatly-title-form">Signin</h1>
 
-          {/* Button Submit */}
-          <Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="creatly-login-form-button"
-              loading={loading}
+            <Form
+              name="normal_login"
+              className="creatly-login-form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
             >
-              Login
-            </Button>
+              {/* Email */}
+              <Item
+                name="email"
+                rules={[
+                  {
+                    type: 'email',
+                    required: true,
+                    message: 'Please input your Email!',
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<MailOutlined className="site-form-item-icon" />}
+                  placeholder="Email"
+                />
+              </Item>
 
-            <div className="creatly-text-center">
-              <span>If you don't already have an account </span>
-              <Link href="/signup">
-                <a>register now!</a>
-              </Link>
-            </div>
-          </Item>
-        </Form>
-      </div>
-    </div>
+              {/* Password */}
+              <Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Password!',
+                  },
+                ]}
+              >
+                <Password
+                  prefix={<FiLock className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="Password"
+                />
+              </Item>
+
+              {/* Forgot password */}
+              <Item className="forgot-password">
+                <Link href="/forgot-password">
+                  <a>Forgot password</a>
+                </Link>
+              </Item>
+
+              {/* Button Submit */}
+              <Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="creatly-login-form-button"
+                  loading={loading}
+                >
+                  Login
+                </Button>
+
+                <div className="creatly-text-center">
+                  <span>If you don't already have an account </span>
+                  <Link href="/signup">
+                    <a>register now!</a>
+                  </Link>
+                </div>
+              </Item>
+            </Form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

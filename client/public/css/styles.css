@@ -139,4 +139,19 @@
 
 .creatly-text-center {
   text-align: center;
+}
+
+.creatly-loading-wrapper .ant-space-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.creatly-loading-wrapper .ant-spin-lg .ant-spin-dot {
+  font-size: 47px;
+}
+.creatly-loading-wrapper .ant-spin-lg .ant-spin-dot i {
+  width: 20px;
+  height: 20px;
 }/*# sourceMappingURL=styles.css.map */
