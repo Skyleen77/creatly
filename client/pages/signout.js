@@ -14,7 +14,9 @@ const Signout = () => {
     localStorage.removeItem('auth');
     // remove from context
     setAuth({
-      user: null,
+      user: {
+        signout: true,
+      },
       token: '',
     });
     // redirect

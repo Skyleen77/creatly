@@ -75,6 +75,26 @@
 }
 
 .creatly-container {
+
+  &.ant-modal,
+  .ant-modal-content,
+  .ant-pagination-item-link,
+  .ant-pagination-item {
+    border-radius: 7px;
+  }
+
+  .ant-modal-header {
+    border-radius: 7px 7px 0 0;
+  }
+
+  &.ant-modal {
+    .ant-form-item,
+    .ant-btn {
+      margin-bottom: 5px !important;
+      margin-top: 5px !important;
+    }
+  }
+
   hr {
     border: none;
     border-top: 1px solid #e8e8e8;
@@ -105,6 +125,10 @@
     border-radius: 7px;
   }
 
+  .ant-form-item {
+    margin-bottom: 20px !important;
+  }
+
   .ant-btn {
     height: unset !important;
     padding: 8px 20px;
@@ -113,7 +137,7 @@
   }
 
   .forgot-password {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
     margin-top: -7px;
 
     .ant-form-item-control-input {
@@ -161,5 +185,55 @@
   .ant-spin-lg .ant-spin-dot i {
     width: 20px;
     height: 20px;
+  }
+}
+
+.creatly-simple-add-form {
+  display: flex;
+
+  .ant-form-item {
+    width: 100%;
+    margin-right: 10px;
+  }
+}
+
+.creatly-page-title {
+  padding: 20px 0px 10px 0px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.creatly-page-subtitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.creatly-dashboard-section {
+  margin: 10px 20px;
+
+  .ant-table {
+    border-radius: 7px;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .creatly-dashboard-section {
+    margin: 5px 10px;
+  }
+
+  .creatly-page-title {
+    padding: 15px 0px 10px 0px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .creatly-dashboard-section {
+    margin: 0px 5px;
+  }
+
+  .creatly-page-title {
+    padding: 10px 0px 5px 0px;
   }
 }

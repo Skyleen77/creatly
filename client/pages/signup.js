@@ -21,6 +21,16 @@ const Signup = () => {
   const { Item } = Form;
   const { Password } = Input;
 
+  const redirectUser = (role) => {
+    if (role === 'Admin') {
+      router.push('/admin');
+    } else if (role === 'Author') {
+      router.push('/author');
+    } else if (role === 'Subscriber') {
+      router.push('/subscriber');
+    }
+  };
+
   const onFinish = async (values) => {
     // console.log('values => ', values);
     setLoading(true);
@@ -45,9 +55,11 @@ const Signup = () => {
 
   useEffect(() => {
     if (auth?.user !== null) {
-      router.push('/');
-    } else {
-      setLoadingPage(false);
+      if (auth?.token) {
+        redirectUser(auth?.user?.role);
+      } else {
+        setLoadingPage(false);
+      }
     }
   }, [auth?.user]);
 

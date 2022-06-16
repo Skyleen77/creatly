@@ -22,13 +22,8 @@ const AdminLayout = ({ children }) => {
       setLoading(false);
     } catch (err) {
       console.log(err);
-      if (auth?.user === null) {
-        if (window.location.pathname === '/admin') {
-          router.push('/signin');
-        } else {
-          router.push('/');
-        }
-        // console.log('location => ', window.location.pathname);
+      if (auth?.user?.signout) {
+        router.push('/signin');
       } else {
         router.push('/');
       }
@@ -36,8 +31,10 @@ const AdminLayout = ({ children }) => {
   };
 
   useEffect(() => {
-    getCurrentAdmin();
-  }, [auth?.token]);
+    if (auth?.user !== null) {
+      getCurrentAdmin();
+    }
+  }, [auth?.user]);
 
   if (loading) {
     return <Loading />;

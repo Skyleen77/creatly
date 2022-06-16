@@ -20,14 +20,14 @@ const TopNav = () => {
       return '/admin';
     } else if (auth?.user?.role === 'Author') {
       return '/author';
-    } else {
+    } else if (auth?.user?.role === 'Subscriber') {
       return '/subscriber';
     }
   };
 
   return (
     <>
-      {auth?.user !== null && (
+      {auth?.token && (
         <Menu
           onClick={handleClick}
           selectedKeys={[current]}

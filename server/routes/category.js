@@ -6,8 +6,11 @@ const router = express.Router();
 import { isAdmin, requireSignin } from '../middlewares';
 
 // controllers
-import { create } from '../controllers/category';
+import { create, readAll, remove, update } from '../controllers/category';
 
 router.post('/category', requireSignin, isAdmin, create);
+router.get('/categories', readAll);
+router.delete('/category/:slug', requireSignin, remove);
+router.put('/category/:slug', requireSignin, update);
 
 export default router;

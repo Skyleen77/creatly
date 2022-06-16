@@ -26,7 +26,7 @@ const Signin = () => {
       router.push('/admin');
     } else if (role === 'Author') {
       router.push('/author');
-    } else {
+    } else if (role === 'Subscriber') {
       router.push('/subscriber');
     }
   };
@@ -61,9 +61,11 @@ const Signin = () => {
 
   useEffect(() => {
     if (auth?.user !== null) {
-      redirectUser(auth?.user?.role);
-    } else {
-      setLoadingPage(false);
+      if (auth?.token) {
+        redirectUser(auth?.user?.role);
+      } else {
+        setLoadingPage(false);
+      }
     }
   }, [auth?.user]);
 

@@ -22,6 +22,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (localStorage.getItem('auth')) {
       setAuth(JSON.parse(localStorage.getItem('auth')));
+    } else {
+      setAuth({
+        user: {
+          signout: true,
+        },
+        token: '',
+      });
     }
   }, []);
 
